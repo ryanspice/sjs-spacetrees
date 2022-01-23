@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
+	<head>
+		<title>Snowboarding</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=600, height=400, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="cursor-event-mode" content="native">
+<meta name="touch-event-mode" content="native">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	</head>
+		<body style="background-color:#FFFFFF; margin:0px; font-size:1.3em;">
+			<div id = "game" style="float:center;width:300px;text-align:center;vertical-align:middle;">
+				<!-- Developed by: Ryan Spice @ Eternal Light Games & RyanSpice.com<br/> -->
+					<canvas id="buffer" hidden="true" style="true;cursor:yes;position: absolute; top: 50; z-index: 0;" width="100" height="100">
+						<p>You're browser doesn't support 'canvas'.</p>
+					</canvas>
+					<canvas id="input" tabindex = "1" style="cursor:yes;position: absolute; top: 50; z-index: 1;" width="100" height="100">
+						<p>You're browser doesn't support 'canvas'.</p>
+					</canvas>
+					<canvas id="client" style="position: absolute; top: 50; z-index: 2;" width="100" height="100">
+						<p>You're browser doesn't support 'canvas'.</p>
+					</canvas>
+					<input type='hidden' onChange="uploadScore();" name='username' />
+			</div>
+			<div id="fb-root"></div>
+			<center>
+			<div class="fb-like" style="position: absolute; top: 10; z-index: 3;" data-href="https://apps.facebook.com/elg_snowboarding/" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-action="recommend" data-font="verdana"></div>
+			</center>
+		</body>
+	<script type="application/x-javascript" src="data/scr_game_define.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_state.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_input.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_user.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_visual.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_map.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_loading.js"></script>	
+	<script type="application/x-javascript" src="data/scr_game_menu.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_arcade.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_player.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_effects.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_scoreplus.js"></script>
+	<script type="application/x-javascript" src="data/scr_mapo.js"></script>
+	<script type="application/x-javascript" src="data/scr_game_client.js"></script>
+	<script type="application/x-javascript">client_start();</script>
+	<script>
+		(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=177202452415805";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		  window.fbAsyncInit = function() 
+		  {
+			FB.init({
+			  appId      : '177202452415805', // App ID
+			  channelUrl : '//www.eternallight.ca/testing/channel.html', // Channel File
+			  status     : true, // check login status
+			  cookie     : true, // enable cookies to allow the server to access the session
+			  xfbml      : true  // parse XFBML
+			});
+
+			// Additional initialization code here
+		  };
+
+		  // Load the SDK Asynchronously
+		  (function(d){
+			 var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+			 if (d.getElementById(id)) {return;}
+			 js = d.createElement('script'); js.id = id; js.async = true;
+			 js.src = "//connect.facebook.net/en_US/all.js";
+			 ref.parentNode.insertBefore(js, ref);
+		   }(document));
+
+	function ajaxFunction(name,score)
+		{
+			var ajaxRequest;
+			try{
+				ajaxRequest = new XMLHttpRequest();
+			} catch (e){
+				try{
+					ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+				} catch (e) {
+					try{
+						ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch (e){
+						alert("101011");
+						return false;
+					}
+				}
+			}
+			ajaxRequest.open("GET", "highscores/submit.php?name="+name+"&score="+score, true);
+			ajaxRequest.send(null); 
+		}
+	function HIGHSCORE_update()
+		{
+			var scoreReq;
+			try{
+				scoreReq = new XMLHttpRequest();
+			} catch (e){
+				try{
+					scoreReq = new ActiveXObject("Msxml2.XMLHTTP");
+				} catch (e) {
+					try{
+						scoreReq = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch (e){
+						alert("101011");
+						return false;
+					}
+				}
+			}
+			scoreReq.open("GET", "highscores/update.php", true);
+			scoreReq.send(null); 
+		}
+	</script>
+</html>
